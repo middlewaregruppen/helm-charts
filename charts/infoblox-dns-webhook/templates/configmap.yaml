@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.env.configMap.name }}
+data:
+  {{- range $key,$val := .Values.infobloxInfo }}
+  {{- if ne $key "secret" }}
+    {{- if ne $key "loadbalancer_Ip" }}
+    INFOBLOX_{{ $key | upper }}: "{{ $val }}"
+    {{- else }}
+    {{ $key | upper }}: "{{ $val }}"
+    {{- end }}
+  {{- end }}
+  {{- end }}
