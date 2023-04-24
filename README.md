@@ -49,10 +49,10 @@ make clean
 ```
 
 ### Deployment in "Production-like" Kubernetes cluster
-- Deployment of the webhook is done using the helm chart in the `infoblox-dns-webhook` folder.
-
 ```
-helm install infoblox-dns ./infoblox-dns-webhook -n infoblox-dns --create-namespace -f values.yaml
+helm repo add infoblox-dns-webhook https://middlewaregruppen.github.io/helm-charts
+helm repo update
+helm install infoblox-dns-webhook -n infoblox-dns --create-namespace -f values.yaml ..create-namespace
 ```
 The following variables are used to deploy the webhook
 
