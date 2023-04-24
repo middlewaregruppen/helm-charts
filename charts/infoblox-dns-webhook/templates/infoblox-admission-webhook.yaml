@@ -1,33 +1,5 @@
 ---
 apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingWebhookConfiguration
-metadata:
-  name: {{ .Values.project.name }}-ingress-validation
-webhooks:
-  - name: {{ .Values.project.name }}.validation.{{ .Release.Namespace }}.svc
-    namespaceSelector:
-      matchExpressions:
-        - key: kubernetes.io/metadata.name
-          operator: NotIn
-          values: [ "kube-system", "{{ .Release.Namespace }}" ]
-    rules:
-      - operations: [ "CREATE", "UPDATE", "DELETE" ]
-        apiGroups: [ "networking.k8s.io" ]
-        apiVersions: [ "v1" ]
-        resources: [ "ingresses" ]
-        scope: "Namespaced"
-    clientConfig:
-      caBundle: {{ .Values.tls.cert }}
-      service:
-        namespace: {{ .Release.Namespace }}
-        name: {{ .Values.project.name }}
-        path: "/validate"
-    admissionReviewVersions: ["v1"]
-    sideEffects: None
-    timeoutSeconds: 30
-
----
-apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: {{ .Values.project.name }}-ingress-mutation
