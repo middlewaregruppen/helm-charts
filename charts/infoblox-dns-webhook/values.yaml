@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/middlewaregruppen/infoblox-dns-webhook/infoblox-dns-webhook
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "9b61eea"
+  tag: "ae52dd8"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
