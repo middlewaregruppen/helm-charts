@@ -75,7 +75,6 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 # Cluster attributes
 clusterInfo:
   name: ""
