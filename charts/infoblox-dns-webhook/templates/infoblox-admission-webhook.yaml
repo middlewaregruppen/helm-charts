@@ -9,7 +9,7 @@ webhooks:
       matchExpressions:
         - key: kubernetes.io/metadata.name
           operator: NotIn
-          values: [ "kube-system", "{{ .Release.Namespace }}" ]
+          values: [ "kube-system", "vmware-system-auth", "vmware-system-cloud-provider", "vmware-system-csi", "{{ .Release.Namespace }}" ]
     rules:
       - operations: [ "CREATE", "UPDATE", "DELETE" ]
         apiGroups: [ "networking.k8s.io" ]

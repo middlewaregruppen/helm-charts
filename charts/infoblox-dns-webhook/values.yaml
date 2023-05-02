@@ -75,6 +75,12 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+# Cluster attributes
+clusterInfo:
+  name: ""
+  ingressControllerNamespace: ingress-nginx
+  ingressControllerName: ingress-nginx-controller
 # TLS key and cert for webhook
 tls:
   name: infoblox-dns-webhook-tls
