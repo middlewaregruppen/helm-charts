@@ -17,7 +17,11 @@ webhooks:
         resources: [ "ingresses" ]
         scope: "Namespaced"
     clientConfig:
-      caBundle: {{ .Values.tls.cert }}
+      caBundle: {{- range $key,$val := range .Values.tls }}
+      {{ if eq $key "tls.crt" }}
+        {{ $val }}
+      {{- end }}
+      {{ ( include "infoblox-dns-webhook.gen-cert" . ) | indent 2 }}
       service:
         namespace: {{ .Release.Namespace }}
         name: {{ .Values.project.name }}
