@@ -63,6 +63,7 @@ Create the name of the service account to use
 {{/*
 Generate Self-signed certificate and create TLS secret
 */}}
+{{- define "secret" }}
 {{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" 365 }}
 apiVersion: v1
 kind: Secret
@@ -73,6 +74,7 @@ type: kubernetes.io/tls
 data:
   tls.crt: {{ $tlscert.Cert | b64enc | quote }}
   tls.key: {{ $tlscert.Key | b64enc | quote }}
+{{- end }}
 {{/*
 Add environment variables from a configMap - valueFrom
 */}}

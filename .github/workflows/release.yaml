@@ -24,6 +24,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Lint the chart
+        run: |
+          helm lint charts/infoblox-dns-webhook
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          
       - name: Run Chart Releaser
         uses: helm/chart-releaser-action@v1.4.0
         env:
