@@ -68,12 +68,11 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: {{ .Release.Name | quote }}
-  namespace: {{ $.Release.Namespace | quote }}
+  namespace: {{ .Release.Namespace | quote }}
 type: kubernetes.io/tls
 data:
   tls.crt: {{ $tlscert.Cert | b64enc | quote }}
   tls.key: {{ $tlscert.Key | b64enc | quote }}
-{{- end }}
 {{/*
 Add environment variables from a configMap - valueFrom
 */}}
