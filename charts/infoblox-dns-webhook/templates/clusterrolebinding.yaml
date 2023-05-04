@@ -11,3 +11,17 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: null
+  name: infoblox-dns-webhook-cert-signer-rb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: infoblox-dns-webhook-cert-signer
+subjects:
+- kind: ServiceAccount
+  name: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
