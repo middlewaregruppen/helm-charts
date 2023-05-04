@@ -71,8 +71,8 @@ Generate Self-signed certificate and create TLS secret
 */}}
 {{- define "infoblox-dns-webhook.gen-cert" }}
 {{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}.svc" (list "127.0.0.1") (list "") 365 }}
-crt: {{ $tlscert.Cert | b64enc }}
-key: {{ $tlscert.Key | b64enc }}
+tls.crt: {{ $tlscert.Cert | b64enc }}
+tls.key: {{ $tlscert.Key | b64enc }}
 {{- end }}
 
 {{/*
