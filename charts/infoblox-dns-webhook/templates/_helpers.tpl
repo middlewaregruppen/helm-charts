@@ -64,7 +64,7 @@ Create the name of the service account to use
 Generate Self-signed certificate and create TLS secret
 */}}
 {{- define "infoblox-dns-webhook.gen-cert" }}
-{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" (list nil) (list nil) 365 }}
+{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" (list "127.0.0.1") (list "") 365 }}
 tls.crt: {{ $tlscert.Cert | b64enc }}
 tls.key: {{ $tlscert.Key | b64enc }}
 {{- end }}
