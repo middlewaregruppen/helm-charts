@@ -63,17 +63,10 @@ Create the name of the service account to use
 {{/*
 Generate Self-signed certificate and create TLS secret
 */}}
-{{- define "infoblox-dns-webhook.secret" }}
-{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" (list "127.0.0.1") (list "localhost") 365 }}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ .Release.Name | quote }}
-  namespace: {{ .Release.Namespace | quote }}
-type: kubernetes.io/tls
-data:
-  tls.crt: {{ $tlscert.Cert | b64enc | quote }}
-  tls.key: {{ $tlscert.Key | b64enc | quote }}
+{{- define "infoblox-dns-webhook.gen-cert" }}
+{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" (list nil) (list nil) 365 }}
+tls.crt: {{ $tlscert.Cert | b64enc }}
+tls.key: {{ $tlscert.Key | b64enc }}
 {{- end }}
 {{/*
 Add environment variables from a configMap - valueFrom
