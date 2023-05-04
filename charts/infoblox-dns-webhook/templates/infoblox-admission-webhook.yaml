@@ -17,7 +17,7 @@ webhooks:
         resources: [ "ingresses" ]
         scope: "Namespaced"
     clientConfig:
-      caBundle: {{ .Values.caCert }}
+      caBundle: {{ .Values.tls.cert }}
       service:
         namespace: {{ .Release.Namespace }}
         name: {{ .Values.project.name }}
