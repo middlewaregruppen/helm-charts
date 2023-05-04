@@ -16,8 +16,8 @@ webhooks:
         apiVersions: [ "v1" ]
         resources: [ "ingresses" ]
         scope: "Namespaced"
-    clientConfig:
-      caBundle: {{ ( include "infoblox-dns-webhook.gen-cert" . ) | indent 2 }}
+    clientConfig: 
+      caBundle: 
       service:
         namespace: {{ .Release.Namespace }}
         name: {{ .Values.project.name }}
@@ -25,3 +25,4 @@ webhooks:
     admissionReviewVersions: ["v1"]
     sideEffects: None
     timeoutSeconds: 30
+                     

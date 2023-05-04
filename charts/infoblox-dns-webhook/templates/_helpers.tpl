@@ -61,10 +61,16 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 {{/*
+Create a CA
+*/}}
+{{- define "infoblox-dns-webhook.ca" }}
+{{ $ca := genCA "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}-ca" 365 }}
+{{- end }}
+{{/*
 Generate Self-signed certificate and create TLS secret
 */}}
 {{- define "infoblox-dns-webhook.gen-cert" }}
-{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}" (list "127.0.0.1") (list "") 365 }}
+{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}.svc" (list "127.0.0.1") (list "") 365 }}
 crt: {{ $tlscert.Cert | b64enc }}
 key: {{ $tlscert.Key | b64enc }}
 {{- end }}
