@@ -73,6 +73,7 @@ Generate Self-signed certificate and create TLS secret
 {{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}.svc" (list "127.0.0.1") (list "") 365 }}
 tls.crt: {{ $tlscert.Cert | b64enc }}
 tls.key: {{ $tlscert.Key | b64enc }}
+caBundle: {{ $tlscert.Cert | b64enc }}
 {{- end }}
 
 {{/*
