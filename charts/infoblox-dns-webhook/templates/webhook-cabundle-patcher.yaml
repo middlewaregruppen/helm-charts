@@ -11,6 +11,7 @@ spec:
       labels:
         job-name: webhook-cabundle-patcher
     spec:
+      serviceAccountName: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
       containers:
       - command: ["/bin/sh","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls -n {{ .Release.Namespace }} -o jsonpath='{.data.caBundle}'); \
           echo 'INFO: Trying to patch webhook to add caBundle';\
