@@ -12,31 +12,31 @@ rules:
   - get
   - list
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: infoblox-dns-webhook-cert-signer
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - get
-  - list
-  - watch
-  - delete
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/status
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceNames:
-  - kubernetes.io/kube-apiserver-client
-  verbs:
-  - sign
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRole
+# metadata:
+#   name: infoblox-dns-webhook-cert-signer
+# rules:
+# - apiGroups:
+#   - certificates.k8s.io
+#   resources:
+#   - certificatesigningrequests
+#   verbs:
+#   - get
+#   - list
+#   - watch
+#   - delete
+# - apiGroups:
+#   - certificates.k8s.io
+#   resources:
+#   - certificatesigningrequests/status
+#   verbs:
+#   - update
+# - apiGroups:
+#   - certificates.k8s.io
+#   resources:
+#   - signers
+#   resourceNames:
+#   - kubernetes.io/kube-apiserver-client
+#   verbs:
+#   - sign
