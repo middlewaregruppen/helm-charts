@@ -54,7 +54,7 @@ spec:
           {{- include "helpers.list-secret-variables" . | indent 10 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: webhook-caBundle-update
+        - name: webhook-cabundle-update
           image: quay.io/didil/k8s-webhook-cert-manager:0.13.19-1-a
           command: ["/bin/bash","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls -n {{ .Release.Namespace }} -o jsonpath='{.data.\"tls.crt\"}'); \
           echo 'INFO: Trying to patch webhook to add caBundle';\
