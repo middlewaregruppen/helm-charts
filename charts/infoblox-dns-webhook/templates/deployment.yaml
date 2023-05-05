@@ -54,12 +54,12 @@ spec:
           {{- include "helpers.list-secret-variables" . | indent 10 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: webhook-cabundle-update
-          image: quay.io/didil/k8s-webhook-cert-manager:0.13.19-1-a
-          command: ["/bin/sh","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls -n {{ .Release.Namespace }} -o jsonpath='{.data.caBundle}'); \
-          echo 'INFO: Trying to patch webhook to add caBundle';\
-           kubectl patch mutatingwebhookconfiguration {{ .Values.project.name }}-ingress-mutation \
-           --type='json' -p \"[{'op': 'add', 'path': '/webhooks/0/clientConfig/caBundle', 'value':'${caBundle}'}]\""]
+        # - name: webhook-cabundle-update
+        #   image: quay.io/didil/k8s-webhook-cert-manager:0.13.19-1-a
+        #   command: ["/bin/sh","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls -n {{ .Release.Namespace }} -o jsonpath='{.data.caBundle}'); \
+        #   echo 'INFO: Trying to patch webhook to add caBundle';\
+        #    kubectl patch mutatingwebhookconfiguration {{ .Values.project.name }}-ingress-mutation \
+        #    --type='json' -p \"[{'op': 'add', 'path': '/webhooks/0/clientConfig/caBundle', 'value':'${caBundle}'}]\""]
       volumes:
       {{- toYaml .Values.volumes | default "" | nindent 6 }}
       {{- with .Values.nodeSelector }}
