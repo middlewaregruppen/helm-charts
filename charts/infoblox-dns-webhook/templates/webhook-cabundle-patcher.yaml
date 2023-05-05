@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    job-name: webhook-cabundle-patcher
+  name: webhook-cabundle-patcher
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        job-name: webhook-cabundle-patcher
+    spec:
+      containers:
+      - command: ["/bin/sh","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls -n {{ .Release.Namespace }} -o jsonpath='{.data.caBundle}'); \
+          echo 'INFO: Trying to patch webhook to add caBundle';\
+           kubectl patch mutatingwebhookconfiguration {{ .Values.project.name }}-ingress-mutation \
+           --type='json' -p \"[{'op': 'add', 'path': '/webhooks/0/clientConfig/caBundle', 'value':'${caBundle}'}]\""]
+        image: quay.io/didil/k8s-webhook-cert-manager:0.13.19-1-a
+        imagePullPolicy: IfNotPresent
+        name: webhook-cabundle-patcher
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
