@@ -54,6 +54,18 @@ spec:
           {{- include "helpers.list-secret-variables" . | indent 10 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        # - name: webhook-caBundle-update
+        #   image: quay.io/didil/k8s-webhook-cert-manager:0.13.19-1-a
+        #   command: ["/bin/bash","-c","caBundle=$(kubectl get secret {{.Release.Name }}-tls )"]
+        #   args:
+        #     - "--service"
+        #     - "{{ include "infoblox-dns-webhook.fullname" . }}"
+        #     - "--webhook"
+        #     - "{{ .Values.project.name }}-ingress-mutation"
+        #     - "--secret"
+        #     - "{{ .Release.Name }}-tls"
+        #     - "--namespace"
+        #     - "{{ .Release.Namespace }}"
       volumes:
       {{- toYaml .Values.volumes | default "" | nindent 6 }}
       {{- with .Values.nodeSelector }}
