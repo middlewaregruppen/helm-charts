@@ -3,6 +3,16 @@ entries:
   infoblox-dns-webhook:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-05T06:59:29.667126195Z"
+    description: A Helm chart for Kubernetes
+    digest: 809913b3cc7d88c40689760d9077cd5d02dfc74cab2a9d188c961e9f0038cef3
+    name: infoblox-dns-webhook
+    type: application
+    urls:
+    - https://github.com/middlewaregruppen/helm-charts/releases/download/infoblox-dns-webhook-0.1.33/infoblox-dns-webhook-0.1.33.tgz
+    version: 0.1.33
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-01T13:58:42.029451436Z"
     description: A Helm chart for Kubernetes
     digest: de6d44f64b249c8188dab5b8028f4671375f5d48c998bea31df925e14e47db0b
@@ -311,4 +321,4 @@ entries:
     urls:
     - https://github.com/middlewaregruppen/helm-charts/releases/download/infoblox-dns-webhook-0.1.0/infoblox-dns-webhook-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-01T13:58:42.029873644Z"
+generated: "2023-06-05T06:59:29.667501799Z"
