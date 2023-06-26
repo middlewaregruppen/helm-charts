@@ -78,6 +78,18 @@ caBundle: {{ $tlscert.Cert | b64enc }}
 {{- end }}
 
 {{/*
+Add plain environment variables to deployment
+*/}}
+{{- define "helpers.list-plain-env-variables" }}
+{{- range $key,$val := .Values.ingress }}
+{{- if ne $key "enabled" }}
+- name: {{ $key | upper }}
+  value: {{ $val }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
 Add environment variables from a configMap - valueFrom
 */}}
 {{- define "helpers.list-env-variables" }}
