@@ -71,10 +71,11 @@ Create a CA
 Generate Self-signed certificate and create TLS secret
 */}}
 {{- define "infoblox-dns-webhook.gen-cert" }}
-{{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}.svc" (list "127.0.0.1") (list "") 365 }}
+{{ $caCert := genCA "infoblox-dns-webhook-ca" 365 }}
+{{- $tlscert := genSignedCert "infoblox-dns-webhook.infoblox-dns.svc"  (list "127.0.0.1") (list "infoblox-dns-webhook.infoblox-dns.svc") 730 $caCert }}
 tls.crt: {{ $tlscert.Cert | b64enc }}
 tls.key: {{ $tlscert.Key | b64enc }}
-caBundle: {{ $tlscert.Cert | b64enc }}
+caBundle: {{ $caCert.Cert | b64enc }}
 {{- end }}
 
 {{/*
