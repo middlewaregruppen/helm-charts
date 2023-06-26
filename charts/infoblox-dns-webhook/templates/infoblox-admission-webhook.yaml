@@ -22,6 +22,7 @@ webhooks:
         namespace: {{ .Release.Namespace }}
         name: {{ .Values.project.name }}
         path: "/mutate"
+        port: {{ .Values.service.port }}
     admissionReviewVersions: ["v1"]
     sideEffects: None
     timeoutSeconds: 30
