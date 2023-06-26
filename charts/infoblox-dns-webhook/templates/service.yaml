@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "infoblox-dns-webhook.fullname" . }}
+  name: {{ .Values.project.name }}
   labels:
     {{- include "infoblox-dns-webhook.labels" . | nindent 4 }}
 spec:

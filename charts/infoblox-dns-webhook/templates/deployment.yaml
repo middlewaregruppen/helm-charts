@@ -49,6 +49,7 @@ spec:
           - name: {{ .Values.volumeMounts.name }}
             mountPath: {{ .Values.volumeMounts.mountPath }}
           env:
+          {{- include "helpers.list-plain-env-variables" . | indent 10 }}
           {{- include "helpers.list-env-variables" . | indent 10 }}
           {{- include "helpers.list-secret-variables" . | indent 10 }}
           resources:

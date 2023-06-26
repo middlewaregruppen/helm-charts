@@ -60,6 +60,7 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
 {{/*
 Create a CA
 */}}
@@ -73,6 +74,19 @@ Generate Self-signed certificate and create TLS secret
 {{- $tlscert := genSelfSignedCert "{{ .Values.tls.certCommonName }}.{{ .Release.Namespace }}.svc" (list "127.0.0.1") (list "") 365 }}
 tls.crt: {{ $tlscert.Cert | b64enc }}
 tls.key: {{ $tlscert.Key | b64enc }}
+caBundle: {{ $tlscert.Cert | b64enc }}
+{{- end }}
+
+{{/*
+Add plain environment variables to deployment
+*/}}
+{{- define "helpers.list-plain-env-variables" }}
+{{- range $key,$val := .Values.ingress }}
+{{- if ne $key "enabled" }}
+- name: {{ $key | upper }}
+  value: {{ $val }}
+{{- end }}
+{{- end }}
 {{- end }}
 
 {{/*

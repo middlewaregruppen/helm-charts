@@ -2,12 +2,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   creationTimestamp: null
-  name: ingress-controller-svc-reader
+  name: infoblox-secrets-services-reader
 rules:
 - apiGroups:
   - ""
   resources:
   - services
+  - secrets
   verbs:
   - get
   - list
@@ -15,28 +16,30 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: infoblox-dns-webhook-cert-signer
+  creationTimestamp: null
+  name: infoblox-ingress-controller-svc-reader
 rules:
 - apiGroups:
-  - certificates.k8s.io
+  - "networking.k8s.io"
   resources:
-  - certificatesigningrequests
+  - ingresses
   verbs:
   - get
   - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: infobloxdns-webhook-updator
+rules:
+- apiGroups:
+  - "admissionregistration.k8s.io"
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - get
+  - list
+  - patch
   - watch
-  - delete
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/status
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceNames:
-  - kubernetes.io/kube-apiserver-client
-  verbs:
-  - sign
+---

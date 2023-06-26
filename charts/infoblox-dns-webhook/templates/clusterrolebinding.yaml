@@ -2,11 +2,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   creationTimestamp: null
-  name: ingress-controller-svc-reader-rb
+  name: infoblox-secrets-services-reader-rb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: ingress-controller-svc-reader
+  name: infoblox-secrets-services-reader
 subjects:
 - kind: ServiceAccount
   name: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
@@ -16,12 +16,27 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   creationTimestamp: null
-  name: infoblox-dns-webhook-cert-signer-rb
+  name: infoblox-ingress-controller-svc-reader-rb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: infoblox-dns-webhook-cert-signer
+  name: infoblox-ingress-controller-svc-reader
 subjects:
 - kind: ServiceAccount
   name: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: null
+  name: infobloxdns-webhook-updator-rb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: infobloxdns-webhook-updator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "infoblox-dns-webhook.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
